@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils import timezone
@@ -146,3 +147,56 @@ def parentHomework(request):
     homework = Homework.objects.filter(class_section_id__in=class_list)
 
     return render(request, "parent/homework.html", {"homework": homework})
+
+
+
+
+def addStudent(request):
+    if request.session.get('user_role') != 'teacher':
+        return redirect('login')
+
+    class_sections = ClassSection.objects.all()
+    parents = userRegistration.objects.filter(role='parent')
+
+    if request.method == "POST":
+        name = request.POST['name']  # Student name
+        dob = request.POST['dob']    # Date of birth from form
+        class_id = request.POST['class_section']
+        parent_phone = request.POST['parent_phone']
+
+        try:
+            parent = userRegistration.objects.get(
+                phone=parent_phone, role='parent'
+            )
+        except userRegistration.DoesNotExist:
+            messages.error(request, "Parent phone number not found.")
+            return redirect('add_student')
+        
+    # Generate admission number
+    # -----------------------------
+        last_student = Student.objects.order_by('-id').first()
+        if last_student:
+            last_id = last_student.id + 1
+        else:
+            last_id = 1
+
+        admission_no = f"ADM{last_id:03d}"
+
+        # Create student with DOB
+        Student.objects.create(
+            full_name=name,
+            dob=dob,
+            class_section_id=class_id,
+            parent=parent,
+            admission_no=admission_no
+        )
+
+        messages.success(request, "Student added successfully!")
+        return redirect('teacher_dashboard')
+
+    return render(
+        request,
+        "teacher/add_student.html",
+        {"class_sections": class_sections, "parents": parents}
+    )
+

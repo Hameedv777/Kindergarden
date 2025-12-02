@@ -25,5 +25,8 @@ urlpatterns = [
     path("parent/fees/", views.parentFees, name="parent_fees"),
     path("parent/homework/", views.parentHomework, name="parent_homework"),
 
+    path('teacher/add-student/', views.addStudent, name='add_student'),
+
+
 
 ]

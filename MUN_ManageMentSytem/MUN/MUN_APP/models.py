@@ -12,7 +12,7 @@ class userRegistration(models.Model):
     )
 
     fName = models.CharField(max_length=200)
-    phone = models.CharField(max_length=200)
+    phone = models.CharField(max_length=200, unique=True)
     email = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='parent')
