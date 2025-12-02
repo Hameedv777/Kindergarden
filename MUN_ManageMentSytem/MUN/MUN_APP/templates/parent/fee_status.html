@@ -1,0 +1,18 @@
+<h2>Fee Payment Status</h2>
+
+<table border="1">
+    <tr>
+        <th>Student</th>
+        <th>Month</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </tr>
+    {% for f in fees %}
+    <tr>
+        <td>{{ f.student.full_name }}</td>
+        <td>{{ f.fee.month }}</td>
+        <td>{{ f.fee.amount }}</td>
+        <td>{{ f.status }}</td>
+    </tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,23 @@
+<h2>Mark Attendance for {{ class.class_name }} - {{ class.section }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <table border="1">
+        <tr>
+            <th>Student</th>
+            <th>Present</th>
+            <th>Absent</th>
+        </tr>
+
+        {% for s in students %}
+        <tr>
+            <td>{{ s.full_name }}</td>
+            <td><input type="radio" name="{{ s.id }}" value="Present" required></td>
+            <td><input type="radio" name="{{ s.id }}" value="Absent"></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <button type="submit">Save Attendance</button>
+</form>

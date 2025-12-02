@@ -1,0 +1,10 @@
+<h2>Homework for Your Child</h2>
+
+{% for h in homework %}
+<p>
+    <b>{{ h.title }}</b><br>
+    {{ h.description }}<br>
+    Class: {{ h.class_section }}
+</p>
+<hr>
+{% endfor %}
