@@ -1,0 +1,98 @@
+<h2>Add Student</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Student Name</label><br>
+    <input type="text" name="name" required><br><br>
+
+
+    <label>Date of Birth</label>
+    <input type="date" name="dob" required>
+
+
+
+    <!-- CLASS DROPDOWN -->
+    <label>Class</label><br>
+    <select id="classSelect" required>
+        <option value="">Select Class</option>
+        <option value="LKG">LKG</option>
+        <option value="UKG">UKG</option>
+    </select><br><br>
+
+    <!-- SECTION DROPDOWN -->
+    <label>Section</label><br>
+    <select name="class_section" id="sectionSelect" required>
+        <option value="">Select Section</option>
+    </select><br><br>
+
+    <label>Parent Phone</label><br>
+    <input type="text" id="parentPhone" name="parent_phone" pattern="[0-9]{10}" required><br><br>
+
+    <label>Parent Name</label><br>
+    <input type="text" id="parentName" name="parent_name" readonly><br><br>
+
+    <button type="submit">Add Student</button>
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // --- CLASS / SECTION LOGIC ---
+        const classSelect = document.getElementById("classSelect");
+        const sectionSelect = document.getElementById("sectionSelect");
+
+        const classSections = [
+            {% for cs in class_sections %}
+        {
+            id: "{{ cs.id }}",
+            class_name: "{{ cs.class_name }}",
+            section: "{{ cs.section }}"
+        }{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    ];
+
+    console.log(classSections); // DEBUG ✅
+
+    classSelect.addEventListener("change", function () {
+        sectionSelect.innerHTML = "<option value=''>Select Section</option>";
+
+        const selectedClass = this.value;
+
+        classSections.forEach(cs => {
+            if (cs.class_name === selectedClass) {
+                const option = document.createElement("option");
+                option.value = cs.id;
+                option.textContent = cs.section;
+                sectionSelect.appendChild(option);
+            }
+        });
+    });
+
+    // --- PARENT PHONE / NAME LOGIC ---
+    const parentPhoneInput = document.getElementById("parentPhone");
+    const parentNameInput = document.getElementById("parentName");
+
+    const parents = [
+        {% for p in parents %}
+    {
+        id: "{{ p.id }}",
+            phone: "{{ p.phone }}",
+                name: "{{ p.fName }}"
+    } {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    ];
+
+    parentPhoneInput.addEventListener("blur", function () {
+        const phone = this.value.trim();
+
+        const parent = parents.find(p => p.phone === phone);
+
+        if (parent) {
+            parentNameInput.value = parent.name;
+        } else {
+            parentNameInput.value = "";
+        }
+    });
+
+});
+</script>

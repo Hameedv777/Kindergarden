@@ -1,0 +1,23 @@
+<h2>All Students</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Admission No</th>
+        <th>Class</th>
+        <th>Parent</th>
+    </tr>
+
+    {% for s in students %}
+    <tr>
+        <td>
+            <a href="{% url 'student_detail' s.id %}">
+                {{ s.full_name }}
+            </a>
+        </td>
+        <td>{{ s.admission_no }}</td>
+        <td>{{ s.class_section }}</td>
+        <td>{{ s.parent.fName }}</td>
+    </tr>
+    {% endfor %}
+</table>

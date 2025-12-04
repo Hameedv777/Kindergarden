@@ -1,0 +1,10 @@
+<h2>Select Class for Attendance</h2>
+<ul>
+    {% for c in classes %}
+    <li>
+        <a href="{% url 'mark_attendance' c.id %}">
+            {{ c.class_name }} - {{ c.section }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>

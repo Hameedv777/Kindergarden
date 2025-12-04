@@ -1,0 +1,10 @@
+<h2>✅ Fee Paid Successfully</h2>
+
+<p>
+    <b>Student:</b> {{ fee_payment.student.full_name }} <br>
+    <b>Admission No:</b> {{ fee_payment.student.admission_no }} <br>
+    <b>Month:</b> {{ fee_payment.fee.month }} <br>
+    <b>Amount:</b> ₹ {{ fee_payment.fee.amount }}
+</p>
+
+<a href="{% url 'parent_fees' %}">⬅ Back to Fees</a>

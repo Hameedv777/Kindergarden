@@ -1,0 +1,8 @@
+<h2>Your Child Details</h2>
+
+{% for c in child %}
+<p><b>Name:</b> {{ c.full_name }}</p>
+<p><b>Admission No:</b> {{ c.admission_no }}</p>
+<p><b>Class:</b> {{ c.class_section }}</p>
+<hr>
+{% endfor %}

@@ -1,0 +1,32 @@
+<h2>Student Details</h2>
+
+<table border="1">
+    <tr>
+        <th>Admission No</th>
+        <td>{{ student.admission_no }}</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>{{ student.full_name }}</td>
+    </tr>
+    <tr>
+        <th>Date of Birth</th>
+        <td>{{ student.dob }}</td>
+    </tr>
+    <tr>
+        <th>Class & Section</th>
+        <td>{{ student.class_section }}</td>
+    </tr>
+    <tr>
+        <th>Parent Name</th>
+        <td>{{ student.parent.fName }}</td>
+    </tr>
+    <tr>
+        <th>Parent Phone</th>
+        <td>{{ student.parent.phone }}</td>
+    </tr>
+</table>
+
+<br>
+
+<a href="{% url 'teacher_dashboard' %}">⬅ Back to Dashboard</a>
